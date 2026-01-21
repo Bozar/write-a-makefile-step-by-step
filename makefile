@@ -12,8 +12,15 @@ FILE_GITKEEP := .gitkeep
 help:
 	@printf "Quick Start Guide\n\n"
 	@printf ":cd step_{NUMBER}\n"
+	@printf ":make help\n"
+	@printf ":make cat\n"
 	@printf ":make\n\n"
 	@printf "Refer to README.md for more information.\n"
+
+
+.PHONY: cat
+cat:
+	@printf "No source file.\n"
 
 
 .PHONY: init
