@@ -19,6 +19,8 @@ help:
 	@$(NEW_LINE_1)
 	@printf ":make help"
 	@$(NEW_LINE_1)
+	@printf ":make cat"
+	@$(NEW_LINE_1)
 	@printf ":make"
 	@$(NEW_LINE_2)
 	@printf "Refer to README.md for more information."
@@ -27,7 +29,7 @@ help:
 
 .PHONY: cat
 cat:
-	@printf "No source file."
+	@printf "File not found."
 	@$(NEW_LINE_1)
 
 
