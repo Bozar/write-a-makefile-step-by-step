@@ -7,20 +7,30 @@ DIR_SRC = $(DIR_STEP_NEW)/src
 
 FILE_GITKEEP := .gitkeep
 
+SHARED := ./shared.mk
+include $(SHARED)
+
 
 .PHONY: help
 help:
-	@printf "Quick Start Guide\n\n"
-	@printf ":cd step_{NUMBER}\n"
-	@printf ":make help\n"
-	@printf ":make cat\n"
-	@printf ":make\n\n"
-	@printf "Refer to README.md for more information.\n"
+	@printf "Quick Start Guide"
+	@$(NEW_LINE_2)
+	@printf ":cd step_{NUMBER}"
+	@$(NEW_LINE_1)
+	@printf ":make help"
+	@$(NEW_LINE_1)
+	@printf ":make cat"
+	@$(NEW_LINE_1)
+	@printf ":make"
+	@$(NEW_LINE_2)
+	@printf "Refer to README.md for more information."
+	@$(NEW_LINE_1)
 
 
 .PHONY: cat
 cat:
-	@printf "No source file.\n"
+	@printf "No source file."
+	@$(NEW_LINE_1)
 
 
 .PHONY: init

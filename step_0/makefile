@@ -1,25 +1,29 @@
+SHARED := ../shared.mk
+include $(SHARED)
+
+
 .PHONY: help
 help:
 	@printf "Step 0: Compile code without a makefile."
-	@printf "\n\n"
+	@$(NEW_LINE_2)
 	@printf "Run one of the following commands instead of \`:make\`."
-	@printf "\n\n"
+	@$(NEW_LINE_2)
 	@printf ":gcc src/main.c -o build/prog"
-	@printf "\n\n"
+	@$(NEW_LINE_2)
 	@printf ":gcc -ansi -pedantic -std=c99 -Wall -Wextra -Wconversion \\"
-	@printf "\n"
+	@$(NEW_LINE_1)
 	@printf "\-Wshadow -Wcast-qual -fanalyzer -O1 src/main.c -o build/prog"
-	@printf "\n\n"
+	@$(NEW_LINE_2)
 	@printf ":if \$$(gcc -ansi -pedantic -std=c99 -Wall -Wextra \\"
-	@printf "\n"
+	@$(NEW_LINE_1)
 	@printf "\-Wconversion -Wshadow -Wcast-qual -fanalyzer -O1 \\"
-	@printf "\n"
+	@$(NEW_LINE_1)
 	@printf "src/main.c -o build/prog); then ./build/prog; fi"
-	@printf "\n"
+	@$(NEW_LINE_1)
 
 
 .PHONY: cat
 cat:
 	@printf "src/main.c:"
-	@printf "\n"
+	@$(NEW_LINE_1)
 	@cat -n src/main.c
