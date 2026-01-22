@@ -19,8 +19,6 @@ help:
 	@$(NEW_LINE_1)
 	@printf ":make help"
 	@$(NEW_LINE_1)
-	@printf ":make cat"
-	@$(NEW_LINE_1)
 	@printf ":make"
 	@$(NEW_LINE_2)
 	@printf "Refer to README.md for more information."
