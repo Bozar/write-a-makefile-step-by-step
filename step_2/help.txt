@@ -1,13 +1,19 @@
-Step 1: Compile & run a tiny C program.
+Step 2: Compile two source files. Use variables.
 
 # Compile C code.
 :make
+
+# Compile C code. There are no variables in the GCC command.
+:make 2a
 
 # Run C program.
 :make run
 
 # Show makefile.
 :make cat
+
+# Show `2a.mk`.
+:make c2a
 
 # Show source files & header files.
 :make cf
