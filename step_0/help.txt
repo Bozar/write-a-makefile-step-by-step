@@ -1,0 +1,11 @@
+Step 0: Compile code without a makefile.
+
+Run one of the following commands instead of `:make`.
+
+:gcc ./src/main.c -o ./build/prog
+:gcc -ansi -pedantic -std=c99 -Wall -Wextra -Wconversion \
+		-Wshadow -Wcast-qual -fanalyzer -O1 \
+		./src/main.c -o ./build/prog
+:if $(gcc -ansi -pedantic -std=c99 -Wall -Wextra \
+		-Wconversion -Wshadow -Wcast-qual -fanalyzer -O1 \
+		./src/main.c -o ./build/prog); then ./build/prog; fi

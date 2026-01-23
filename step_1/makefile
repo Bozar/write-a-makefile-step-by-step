@@ -1,4 +1,4 @@
-SUB := ./sub.mk
+FILE_SUB := sub.mk
 
 
 .PHONY: build
@@ -13,4 +13,4 @@ run:
 	./build/prog
 
 
-include $(SUB)
+include ./$(FILE_SUB)

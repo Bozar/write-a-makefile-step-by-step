@@ -1,0 +1,16 @@
+Step 1: Compile & run a tiny C program.
+
+# Compile C code.
+:make
+
+# Run C program.
+:make run
+
+# Show files.
+:make cat
+
+# Create empty folders.
+:make init
+
+# Show this help.
+:make help

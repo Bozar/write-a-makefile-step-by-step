@@ -6,31 +6,17 @@ DIR_INCLUDE = $(DIR_STEP_NEW)/include
 DIR_SRC = $(DIR_STEP_NEW)/src
 
 FILE_GITKEEP := .gitkeep
-
-SHARED := ./shared.mk
-include $(SHARED)
+FILE_HELP := help.txt
 
 
 .PHONY: help
 help:
-	@printf "Quick Start Guide"
-	@$(NEW_LINE_2)
-	@printf ":cd step_{NUMBER}"
-	@$(NEW_LINE_1)
-	@printf ":make help"
-	@$(NEW_LINE_1)
-	@printf ":make cat"
-	@$(NEW_LINE_1)
-	@printf ":make"
-	@$(NEW_LINE_2)
-	@printf "Refer to README.md for more information."
-	@$(NEW_LINE_1)
+	@cat -n ./$(FILE_HELP)
 
 
 .PHONY: cat
 cat:
-	@printf "File not found."
-	@$(NEW_LINE_1)
+	@printf "File not found.\n"
 
 
 .PHONY: init

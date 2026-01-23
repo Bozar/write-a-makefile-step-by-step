@@ -1,0 +1,8 @@
+Quick Start Guide
+
+:cd step_{NUMBER}
+:make help
+:make cat
+:make
+
+Refer to README.md for more information.

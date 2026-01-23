@@ -1,48 +1,31 @@
-SHARED := ../shared.mk
-include $(SHARED)
+FILE_MAIN := main.c
+
+FILE_HELP := help.txt
+FILE_MAKEFILE := makefile
+FILE_GITKEEP := .gitkeep
+
+DIR_BUILD = ./build
+DIR_INCLUDE = ./include
+DIR_SRC = ./src
 
 
 .PHONY: help
 help:
-	@printf "Step 1: Compile & run a tiny C program."
-	@$(NEW_LINE_2)
-	@printf "# Compile C code."
-	@$(NEW_LINE_1)
-	@printf ":make"
-	@$(NEW_LINE_2)
-	@printf "# Run C program."
-	@$(NEW_LINE_1)
-	@printf ":make run"
-	@$(NEW_LINE_2)
-	@printf "# Show files."
-	@$(NEW_LINE_1)
-	@printf ":make cat"
-	@$(NEW_LINE_2)
-	@printf "# Create empty folders."
-	@$(NEW_LINE_1)
-	@printf ":make init"
-	@$(NEW_LINE_2)
-	@printf "# Show this help."
-	@$(NEW_LINE_1)
-	@printf ":make help"
-	@$(NEW_LINE_1)
+	@cat -n ./$(FILE_HELP)
 
 
 .PHONY: cat
 cat:
-	@printf "makefile:"
-	@$(NEW_LINE_1)
-	@cat -n ./makefile
-	@$(NEW_LINE_2)
-	@printf "src/main.c:"
-	@$(NEW_LINE_1)
-	@cat -n ./src/main.c
+	@printf "makefile:\n"
+	@cat -n ./$(FILE_MAKEFILE)
+	@printf "\n\nsrc/main.c:\n"
+	@cat -n $(DIR_SRC)/$(FILE_MAIN)
 
 
 .PHONY: init
 init:
-	mkdir -p ./src
-	mkdir -p ./include
-	mkdir -p ./build
-	touch ./build/.gitkeep
+	mkdir -p $(DIR_SRC)
+	mkdir -p $(DIR_INCLUDE)
+	mkdir -p $(DIR_BUILD)
+	touch $(DIR_BUILD)/$(FILE_GITKEEP)
 #	git init
