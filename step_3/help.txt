@@ -1,0 +1,31 @@
+Step 3: Add rules to a makefile.
+
+# Compile C code.
+:make
+
+# Compile C code into object files without makefile rules.
+:make 3a
+
+# Compile C code into object files with makefile rules.
+:make 3b
+
+# Run C program.
+:make run
+
+# Show makefile.
+:make cat
+
+# Show `3a.mk`.
+:make c3a
+
+# Show `3b.mk`.
+:make c3b
+
+# Show source files & header files.
+:make cf
+
+# Create empty folders.
+:make init
+
+# Show this help.
+:make help
