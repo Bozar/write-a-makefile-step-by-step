@@ -1,6 +1,7 @@
 FILE_MAIN := main.c
 FILE_GREET_C := greet.c
 FILE_GREET_H := greet.h
+FILE_ADDRESS := address_book.h
 
 FILE_HELP := help.txt
 FILE_MAKEFILE := makefile
@@ -54,6 +55,8 @@ cf:
 	@cat -n $(DIR_SRC)/$(FILE_GREET_C)
 	@printf "\n\ninclude/greet.h:\n"
 	@cat -n $(DIR_INCLUDE)/$(FILE_GREET_H)
+	@printf "\n\ninclude/address_book.h:\n"
+	@cat -n $(DIR_INCLUDE)/$(FILE_ADDRESS)
 
 
 .PHONY: init
