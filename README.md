@@ -135,7 +135,7 @@ Does it mean that we have to insert every dependency in `4a.mk` into a makefile 
 
 Quote from [GCC document](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html):
 
-	(-MM is) Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header.
+> (-MM is) Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header.
 
 The rules for `./include/greet.h` in `4a.mk` and `./build/greet.d` are slightly different.
 
