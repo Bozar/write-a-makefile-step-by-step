@@ -1,0 +1,31 @@
+Step 4: Add header file dependencies.
+
+# Compile C code.
+:make
+
+# Add header file dependencies without variables.
+:make 4a
+
+# Add header file dependencies with variables.
+:make 4b
+
+# Run C program.
+:make run
+
+# Show makefile.
+:make cat
+
+# Show `4a.mk`.
+:make c4a
+
+# Show `4b.mk`.
+:make c4b
+
+# Show source files & header files.
+:make cf
+
+# Create empty folders.
+:make init
+
+# Show this help.
+:make help

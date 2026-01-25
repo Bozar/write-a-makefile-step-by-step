@@ -19,7 +19,7 @@ The above three examples show that a makefile might be unnecessary for a tiny C 
 
 ## Step 1: Compile & run a tiny C program.
 
-We are dealing with the same source file and GCC commands as in Step 0. But this time, the commands are wrapped in a makefile, so that we can use `:make build` and `:make run` to compile code and run program, and create empty folders by `:make init`. Note that if you uncomment the last line in `init` block (`:cat -n sub.mk`), a new git repository will be created.
+We are dealing with the same source file and GCC commands as in Step 0. But this time, the commands are wrapped in a makefile (`:make cat`), therefore we can use `:make build` and `:make run` to compile code and run program, and create empty folders by `:make init`. Note that if you uncomment the last line in `init` block (`:cat -n sub.mk`), a new git repository will be created.
 
 I recommend to expand a makefile gradually.
 
@@ -85,4 +85,66 @@ In Update Mode, when a `{SOURCE_FILE}` has a newer timestamp, `{TARGET_FILE}` in
 
 The special variable `$<` in line 30 (`makefile`) refers to the first file in `{RIGHT}`, which could be `./src/main.c`, `./scr/greet.c`, or any other source file.
 
-Are you confident that the makefile can handle any file changes? Try modifying nothing but a macro definition in `include/greet.h` (`:make cf`): `#define DR_NAME "Cooper"`. Either choose a new name or delete the definition. Does `make` builds a new program for you? It turns out that no matter how many times you run `:make`, Doctor's name remains unchanged -- as stubborn as Sheldon. We'll solve this problem in the final step.
+Are you confident that the makefile can handle any file changes? Try modifying nothing but a macro definition in `include/address_book.h` (`:make cf`): `#define DR_NAME "Cooper"`. Either choose a new name or delete the definition. Does `make` builds a new program for you? It turns out that no matter how many times you run `:make`, Doctor's name remains unchanged -- as stubborn as Sheldon. We'll solve this problem in the final step.
+
+## Step 4: Add header file dependencies.
+
+The first thing to do when solving a problem, as the great teacher Polya pointed out, is to ask yourself -- What is the unknown? The unknown is, how to recompile a source file when a header file it includes is updated? An obvious answer is let object files depend on header files (`:make c4a`). First modify `include/address_book.h`, then run `:make 4a`. `src/greet.c` is recompiled but `src/main.c` is not. The rules and recipies work correctly.
+
+Let's try to merge the second and third rule in `4a.mk` into a general one with variables. Is this rule correct?
+
+	$(PATH_OBJ): $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c $(DIR_INCLUDE)/%.h
+
+Unfortunately it is not. Because there is a `./build/main.o` but no `./include/main.h`, and there is no `./build/address_book.o` but a `./include/address_book.h`. Then what if we put all header files into one variable (`:make c4b`)?
+
+	$(PATH_OBJ): $(DIR_BUILD)/%.o: $(DIR_SRC)/%.c $(PATH_HEADER)
+
+Modify `./include/address_book.h`, dry run both `:make 4a` and `:make 4b`, and compare their detailed outputs.
+
+	:make 4a --just-print --trace
+	:make 4b --just-print --trace
+
+Watch closely and you will notice a suspicious line in `4b`'s output.
+
+	4b.mk:25: update target 'build/main.o' due to: include/address_book.h
+
+The rule for `./build/main.o` should be:
+
+	./build/main.o: ./src/main.c ./include/greet.h
+
+However, in `4b` it becomes:
+
+	./build/main.o: ./src/main.c ./include/greet.h ./include/address_book.h
+
+Does it mean that we have to insert every dependency in `4a.mk` into a makefile by hand? Yes and no. We do need to insert dependencies, not by ourselves, but by a GCC command.
+
+	:gcc -I./include -MM ./src/greet.c -o ./build/greet.d
+	:cat -n ./build/greet.d
+
+Quote from [GCC document](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html):
+
+	(-MM is) Like -M but do not mention header files that are found in system header directories, nor header files that are included, directly or indirectly, from such a header.
+
+The rules for `./include/greet.h` in `4a.mk` and `./build/greet.d` are slightly different.
+
+	4a.mk:
+	     9  ./build/greet.o: ./src/greet.c ./include/greet.h ./include/address_book.h
+
+	./build/greet.d:
+	     1  greet.o: ./src/greet.c ./include/greet.h ./include/address_book.h
+
+Another GCC option (`-MT`) can be used to specify file path.
+
+	:gcc -I./include -MM -MT ./build/greet.o ./src/greet.c -o ./build/greet.d
+
+The final version is as follows (`:make cat`):
+
+	makefile:
+	    35  $(PATH_DEP): $(DIR_BUILD)/%.d: $(DIR_SRC)/%.c
+	    36          $(CC) $(FLAG_INCLUDE) -MM -MT $(patsubst %.d,%.o,$@) $< -o $@
+	    37
+	    38  -include $(PATH_DEP)
+
+Update a dependency file when its related source file is changed. `Make`'s built-in function `patsubst()` replaces a dependency file's suffix `.d` with `.o`, and the output is used as our desired file path. Insert all dependency files to the makefile by `-include $(PATH_DEP)`.
+
+Our makefile is composed of three core rules. Link object files into a program. Compile source files into object files. Create and insert header file dependencies. You can add more new rules to suit your need. However, the tutorial ends here.
