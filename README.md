@@ -1,5 +1,17 @@
 # Write a Makefile Step-by-step
 
+## Introduction
+
+This tutorial is a supplement to following books and other tutorials:
+
+* An Introduction to GCC
+* Managing Projects with GNU Make
+* C Programming: A Modern Approach
+* https://makefiletutorial.com/
+* https://cs.colby.edu/maxwell/courses/tutorials/maketutor/
+
+Start from a tiny C project, expand the project and its makefile gradually, until a simple yet useful makefile of 40+ lines. It's recommended to clone [this repository](https://github.com/Bozar/write-a-makefile-step-by-step) and type commands in terminal yourself, rather than just read text. All code is tested on a Debian server and in MSYS2 on Windows.
+
 ## Step 0: Compile code without a makefile.
 
 `step_0/src/main.c` is a simple piece of C code. When in folder `step_0/`, use `:make cat` to view its content. We can compile it by a GCC command: `:gcc src/main.c -o build/prog`. And then run the program: `:./build/prog`.
